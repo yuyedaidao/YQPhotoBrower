@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "YQPotoBrowerController.h"
 
 @interface ViewController ()
 
@@ -18,7 +19,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    YQPotoBrowerController *photo = [[YQPotoBrowerController alloc] init];
+    photo.photoArray = @[[UIImage imageNamed:@"1.jpg"],[UIImage imageNamed:@"2.jpg"],[UIImage imageNamed:@"3.jpg"],[UIImage imageNamed:@"4.jpg"]];
+    [self presentViewController:photo animated:YES completion:nil];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

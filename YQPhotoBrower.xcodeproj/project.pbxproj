@@ -14,6 +14,13 @@
 		210056AF19E8076300841EA4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 210056AE19E8076300841EA4 /* Images.xcassets */; };
 		210056B219E8076300841EA4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 210056B019E8076300841EA4 /* LaunchScreen.xib */; };
 		210056BE19E8076300841EA4 /* YQPhotoBrowerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 210056BD19E8076300841EA4 /* YQPhotoBrowerTests.m */; };
+		210056CA19E8080500841EA4 /* YQPotoBrowerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 210056C919E8080500841EA4 /* YQPotoBrowerController.m */; };
+		210056D019E815A800841EA4 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 210056CC19E815A800841EA4 /* 1.jpg */; };
+		210056D119E815A800841EA4 /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 210056CD19E815A800841EA4 /* 2.jpg */; };
+		210056D219E815A800841EA4 /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 210056CE19E815A800841EA4 /* 3.jpg */; };
+		210056D319E815A800841EA4 /* 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 210056CF19E815A800841EA4 /* 4.jpg */; };
+		210056D719E8215B00841EA4 /* YQPhotoBrowerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 210056D519E8215B00841EA4 /* YQPhotoBrowerCell.m */; };
+		210056D819E8215B00841EA4 /* YQPhotoBrowerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 210056D619E8215B00841EA4 /* YQPhotoBrowerCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +47,15 @@
 		210056B719E8076300841EA4 /* YQPhotoBrowerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YQPhotoBrowerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		210056BC19E8076300841EA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		210056BD19E8076300841EA4 /* YQPhotoBrowerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YQPhotoBrowerTests.m; sourceTree = "<group>"; };
+		210056C819E8080500841EA4 /* YQPotoBrowerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YQPotoBrowerController.h; sourceTree = "<group>"; };
+		210056C919E8080500841EA4 /* YQPotoBrowerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YQPotoBrowerController.m; sourceTree = "<group>"; };
+		210056CC19E815A800841EA4 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		210056CD19E815A800841EA4 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
+		210056CE19E815A800841EA4 /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
+		210056CF19E815A800841EA4 /* 4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpg; sourceTree = "<group>"; };
+		210056D419E8215B00841EA4 /* YQPhotoBrowerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YQPhotoBrowerCell.h; sourceTree = "<group>"; };
+		210056D519E8215B00841EA4 /* YQPhotoBrowerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YQPhotoBrowerCell.m; sourceTree = "<group>"; };
+		210056D619E8215B00841EA4 /* YQPhotoBrowerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YQPhotoBrowerCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +79,8 @@
 		2100569519E8076300841EA4 = {
 			isa = PBXGroup;
 			children = (
+				210056CB19E8159C00841EA4 /* Resources */,
+				210056C719E807A600841EA4 /* Classes */,
 				210056A019E8076300841EA4 /* YQPhotoBrower */,
 				210056BA19E8076300841EA4 /* YQPhotoBrowerTests */,
 				2100569F19E8076300841EA4 /* Products */,
@@ -117,6 +135,29 @@
 				210056BC19E8076300841EA4 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		210056C719E807A600841EA4 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				210056C819E8080500841EA4 /* YQPotoBrowerController.h */,
+				210056C919E8080500841EA4 /* YQPotoBrowerController.m */,
+				210056D419E8215B00841EA4 /* YQPhotoBrowerCell.h */,
+				210056D519E8215B00841EA4 /* YQPhotoBrowerCell.m */,
+				210056D619E8215B00841EA4 /* YQPhotoBrowerCell.xib */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		210056CB19E8159C00841EA4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				210056CC19E815A800841EA4 /* 1.jpg */,
+				210056CD19E815A800841EA4 /* 2.jpg */,
+				210056CE19E815A800841EA4 /* 3.jpg */,
+				210056CF19E815A800841EA4 /* 4.jpg */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,6 +241,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				210056AD19E8076300841EA4 /* Main.storyboard in Resources */,
+				210056D319E815A800841EA4 /* 4.jpg in Resources */,
+				210056D019E815A800841EA4 /* 1.jpg in Resources */,
+				210056D819E8215B00841EA4 /* YQPhotoBrowerCell.xib in Resources */,
+				210056D119E815A800841EA4 /* 2.jpg in Resources */,
+				210056D219E815A800841EA4 /* 3.jpg in Resources */,
 				210056B219E8076300841EA4 /* LaunchScreen.xib in Resources */,
 				210056AF19E8076300841EA4 /* Images.xcassets in Resources */,
 			);
@@ -219,6 +265,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				210056D719E8215B00841EA4 /* YQPhotoBrowerCell.m in Sources */,
+				210056CA19E8080500841EA4 /* YQPotoBrowerController.m in Sources */,
 				210056AA19E8076300841EA4 /* ViewController.m in Sources */,
 				210056A719E8076300841EA4 /* AppDelegate.m in Sources */,
 				210056A419E8076300841EA4 /* main.m in Sources */,
@@ -344,6 +392,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = YQPhotoBrower/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -354,6 +403,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = YQPhotoBrower/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
