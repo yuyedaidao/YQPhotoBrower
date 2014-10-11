@@ -462,6 +462,7 @@
 				210056C319E8076300841EA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		210056C419E8076300841EA4 /* Build configuration list for PBXNativeTarget "YQPhotoBrowerTests" */ = {
 			isa = XCConfigurationList;
@@ -470,6 +471,7 @@
 				210056C619E8076300841EA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

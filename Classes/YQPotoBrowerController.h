@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface YQPotoBrowerController : UIViewController
 @property (nonatomic,strong) NSArray *photoArray;
 @property (nonatomic,assign) NSInteger startIndex;
+-(void)showStatusBar:(BOOL)show anmiated:(BOOL)animated;
+-(void)showOrHideStatusBar:(BOOL)animated;
 @end

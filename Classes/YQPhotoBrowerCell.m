@@ -7,6 +7,8 @@
 //
 
 #import "YQPhotoBrowerCell.h"
+#import "YQPotoBrowerController.h"
+
 
 @implementation YQPhotoBrowerCell
 
@@ -16,13 +18,13 @@
     
     UITapGestureRecognizer *doubleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewDoubleTapped:)];
     doubleTapRecognizer.numberOfTapsRequired = 2;
-    doubleTapRecognizer.numberOfTouchesRequired = 1;
+//    doubleTapRecognizer.numberOfTouchesRequired = 1;
     [self.scrollView addGestureRecognizer:doubleTapRecognizer];
     
-    UITapGestureRecognizer *twoFingerTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewTwoFingerTapped:)];
-    twoFingerTapRecognizer.numberOfTapsRequired = 1;
-    twoFingerTapRecognizer.numberOfTouchesRequired = 2;
-    [self.scrollView addGestureRecognizer:twoFingerTapRecognizer];
+    UITapGestureRecognizer *oneTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewOneTapped:)];
+    oneTapRecognizer.numberOfTapsRequired = 1;
+//    twoFingerTapRecognizer.numberOfTouchesRequired = 2;
+    [self.scrollView addGestureRecognizer:oneTapRecognizer];
 }
 
 - (void)centerScrollViewContents {
@@ -62,11 +64,16 @@
     [self.scrollView zoomToRect:rectToZoomTo animated:YES];
 }
 
-- (void)scrollViewTwoFingerTapped:(UITapGestureRecognizer*)recognizer {
-    // Zoom out slightly, capping at the minimum zoom scale specified by the scroll view
-    CGFloat newZoomScale = self.scrollView.zoomScale / 1.5f;
-    newZoomScale = MAX(newZoomScale, self.scrollView.minimumZoomScale);
-    [self.scrollView setZoomScale:newZoomScale animated:YES];
+- (void)scrollViewOneTapped:(UITapGestureRecognizer*)recognizer {
+    
+    [self.viewController showOrHideStatusBar:YES];
+    //    if(self.viewController.navigationController.navigationBarHidden){
+////        [self.viewController.navigationController setNavigationBarHidden:NO animated:YES];
+////        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+//    }else{
+//        [self.viewController.navigationController setNavigationBarHidden:YES animated:YES];
+//        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+//    }
 }
 - (UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     // Return the view that you want to zoom
