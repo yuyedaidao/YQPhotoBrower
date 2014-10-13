@@ -12,4 +12,5 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *imgView;
 @property (weak,nonatomic) YQPotoBrowerController *viewController;
+-(void)reset;
 @end

@@ -21,6 +21,8 @@
 		210056D319E815A800841EA4 /* 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 210056CF19E815A800841EA4 /* 4.jpg */; };
 		210056D719E8215B00841EA4 /* YQPhotoBrowerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 210056D519E8215B00841EA4 /* YQPhotoBrowerCell.m */; };
 		210056D819E8215B00841EA4 /* YQPhotoBrowerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 210056D619E8215B00841EA4 /* YQPhotoBrowerCell.xib */; };
+		2130909A19EBAC5D00A47D47 /* YQNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2130909919EBAC5D00A47D47 /* YQNavigationBar.xib */; };
+		2130909D19EBAEEB00A47D47 /* YQNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2130909C19EBAEEB00A47D47 /* YQNavigationBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,9 @@
 		210056D419E8215B00841EA4 /* YQPhotoBrowerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YQPhotoBrowerCell.h; sourceTree = "<group>"; };
 		210056D519E8215B00841EA4 /* YQPhotoBrowerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YQPhotoBrowerCell.m; sourceTree = "<group>"; };
 		210056D619E8215B00841EA4 /* YQPhotoBrowerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YQPhotoBrowerCell.xib; sourceTree = "<group>"; };
+		2130909919EBAC5D00A47D47 /* YQNavigationBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YQNavigationBar.xib; sourceTree = "<group>"; };
+		2130909B19EBAEEB00A47D47 /* YQNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YQNavigationBar.h; sourceTree = "<group>"; };
+		2130909C19EBAEEB00A47D47 /* YQNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YQNavigationBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +150,9 @@
 				210056D419E8215B00841EA4 /* YQPhotoBrowerCell.h */,
 				210056D519E8215B00841EA4 /* YQPhotoBrowerCell.m */,
 				210056D619E8215B00841EA4 /* YQPhotoBrowerCell.xib */,
+				2130909919EBAC5D00A47D47 /* YQNavigationBar.xib */,
+				2130909B19EBAEEB00A47D47 /* YQNavigationBar.h */,
+				2130909C19EBAEEB00A47D47 /* YQNavigationBar.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -246,6 +254,7 @@
 				210056D819E8215B00841EA4 /* YQPhotoBrowerCell.xib in Resources */,
 				210056D119E815A800841EA4 /* 2.jpg in Resources */,
 				210056D219E815A800841EA4 /* 3.jpg in Resources */,
+				2130909A19EBAC5D00A47D47 /* YQNavigationBar.xib in Resources */,
 				210056B219E8076300841EA4 /* LaunchScreen.xib in Resources */,
 				210056AF19E8076300841EA4 /* Images.xcassets in Resources */,
 			);
@@ -266,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				210056D719E8215B00841EA4 /* YQPhotoBrowerCell.m in Sources */,
+				2130909D19EBAEEB00A47D47 /* YQNavigationBar.m in Sources */,
 				210056CA19E8080500841EA4 /* YQPotoBrowerController.m in Sources */,
 				210056AA19E8076300841EA4 /* ViewController.m in Sources */,
 				210056A719E8076300841EA4 /* AppDelegate.m in Sources */,

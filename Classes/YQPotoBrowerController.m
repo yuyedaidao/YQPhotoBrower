@@ -8,15 +8,17 @@
 
 #import "YQPotoBrowerController.h"
 #import "YQPhotoBrowerCell.h"
+#import "YQNavigationBar.h"
 
-
-@interface YQPotoBrowerController ()<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>{
+@interface YQPotoBrowerController ()<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>{
     BOOL _leaveStatusBarAlone;
     BOOL _isVCBasedStatusBarAppearance;
 }
 @property (nonatomic,strong) UICollectionView *collectionView;
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,assign) BOOL showStatusBar;
+@property (nonatomic,assign) YQNavigationBar *navBar;
+@property (nonatomic,assign) NSInteger currentPage;
 @end
 
 @implementation YQPotoBrowerController
@@ -29,7 +31,7 @@ static NSString * const reuseIdentifier = @"YQPhotoBrowerCell";
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
 
-    self.view.frame = CGRectMake(self.view.frame.size.width, 0, 130, 288);
+    self.currentPage = 1;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
@@ -41,13 +43,14 @@ static NSString * const reuseIdentifier = @"YQPhotoBrowerCell";
     [self.view addSubview:self.collectionView];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
+
     self.collectionView.pagingEnabled = YES;
     // Register cell classes
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.showsVerticalScrollIndicator = NO;
     [self.collectionView registerNib:[UINib nibWithNibName:reuseIdentifier bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
 
-    [self setNavBarAppearance:YES];
+//    [self setNavBarAppearance:YES];
     // Do any additional setup after loading the view.
     
     //读取配置文件看状态栏是不是根据视图控制器定
@@ -64,21 +67,38 @@ static NSString * const reuseIdentifier = @"YQPhotoBrowerCell";
         _leaveStatusBarAlone = YES;
     }
     
-    if(self.navigationController){
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 30)];
-        self.titleLabel.font = [UIFont boldSystemFontOfSize:17];
-        self.titleLabel.textColor = self.navigationController.navigationBar.tintColor;
-        self.titleLabel.backgroundColor = [UIColor clearColor];
-        [self.navigationItem setTitleView:self.titleLabel];
-        //        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"2.jpg"] forBarMetrics:UIBarMetricsDefault];
-        //        [self.navigationController.navigationBar setBackgroundColor:<#(UIColor *)#>];
-        //        [self.navigationController.navigationBar setBackIndicatorImage:[UIImage imageNamed:@"1.jpg"]];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(options:)];
-    }
+    //自定义导航栏
+    self.navBar = [[[NSBundle mainBundle] loadNibNamed:@"YQNavigationBar" owner:nil options:nil] lastObject];
+    self.navBar.frame = CGRectMake(0, 0, self.view.bounds.size.width, 64);
+    [self.view addSubview:self.navBar];
+    
+    self.navBar.backItem.target = self;
+    self.navBar.backItem.action = @selector(back);
+    
+    //标题
+    UIView *spaceView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 64)];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 100, 44)];
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.textColor = [UIColor whiteColor];
+    [spaceView addSubview:self.titleLabel];
+    self.navBar.titleItem.customView = spaceView;
+    [self updateTitle];
+    
+    //删除Item
+    self.navBar.cancelItem.target = self;
+    self.navBar.cancelItem.action = @selector(deletePhoto);
+}
+-(void)updateTitle{
+    [self.titleLabel setText:[NSString stringWithFormat:@"%d/%d",self.currentPage,self.photoArray.count]];
+}
+-(void)deletePhoto{
     
 }
+-(void)back{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 -(void)options:(id)sender{
-
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -106,61 +126,28 @@ static NSString * const reuseIdentifier = @"YQPhotoBrowerCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     YQPhotoBrowerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     cell.viewController = self;
-//    cell.scrollView.frame = cell.scrollView.bounds;
-//    cell.imgView.frame = cell.scrollView.bounds;
-    // Configure the cell
-    NSLog(@"======");
-//    cell.scrollView.zoomScale = 1.0f;
+    [cell reset];
+    cell.scrollView.frame = cell.bounds;
+    cell.imgView.frame = cell.scrollView.bounds;
+    NSLog(@"cell frame = %@",NSStringFromCGRect(cell.imgView.frame));
+    
     cell.imgView.image = self.photoArray[indexPath.item];
     return cell;
 }
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-//    return self.view.bounds.size;
-    return CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height-5);
-}
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"||||||");
-}
 
-#pragma mark <UICollectionViewDelegate>
-
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
-*/
-
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
-}
-*/
+//-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+//    NSLog(@"||||||");
+//}
 
 #pragma statusbar
 -(void)showOrHideStatusBar:(BOOL)animated{
     
     [self showStatusBar:!self.prefersStatusBarHidden anmiated:animated];
 }
+
 -(void)showStatusBar:(BOOL)show anmiated:(BOOL)animated{
     self.showStatusBar = show;
-    NSLog(@"hello");
+   
     [self.navigationController setNavigationBarHidden:show animated:YES];
     if(_isVCBasedStatusBarAppearance){
         [UIView animateWithDuration:0.3 animations:^{
@@ -171,7 +158,33 @@ static NSString * const reuseIdentifier = @"YQPhotoBrowerCell";
         [[UIApplication sharedApplication] setStatusBarHidden:show withAnimation:UIStatusBarAnimationSlide];
     }
     
+    CGRect rect = self.navBar.frame;
+    if(!show){
+        if(rect.origin.y!=0){
+            [UIView animateWithDuration:0.3 animations:^{
+                
+                self.navBar.frame = CGRectMake(0, 0, rect.size.width, rect.size.height);
+            }];
+        }
+    }else{
+        if(rect.origin.y!=-rect.size.height){
+            [UIView animateWithDuration:0.3 animations:^{
+                self.navBar.frame = CGRectMake(0, -rect.size.height, rect.size.width, rect.size.height);
+            }];
+        }
+    }
     
+    
+}
+#pragma scroll
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+ 
+    CGPoint offset = scrollView.contentOffset;
+    NSInteger page = (offset.x+scrollView.bounds.size.width/2)/scrollView.bounds.size.width+1;
+    if(page!=self.currentPage){
+        self.currentPage = page;
+        [self updateTitle];
+    }
 }
 
 - (void)setNavBarAppearance:(BOOL)animated {
@@ -188,12 +201,12 @@ static NSString * const reuseIdentifier = @"YQPhotoBrowerCell";
     [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsLandscapePhone];
 }
-//- (UIStatusBarStyle)preferredStatusBarStyle
-//{
-//    return UIStatusBarStyleLightContent;
-//    //UIStatusBarStyleDefault = 0 黑色文字，浅色背景时使用
-//    //UIStatusBarStyleLightContent = 1 白色文字，深色背景时使用
-//}
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+    //UIStatusBarStyleDefault = 0 黑色文字，浅色背景时使用
+    //UIStatusBarStyleLightContent = 1 白色文字，深色背景时使用
+}
 
 - (BOOL)prefersStatusBarHidden
 {

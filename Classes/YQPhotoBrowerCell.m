@@ -23,65 +23,53 @@
     
     UITapGestureRecognizer *oneTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewOneTapped:)];
     oneTapRecognizer.numberOfTapsRequired = 1;
+    [oneTapRecognizer requireGestureRecognizerToFail:doubleTapRecognizer];
 //    twoFingerTapRecognizer.numberOfTouchesRequired = 2;
     [self.scrollView addGestureRecognizer:oneTapRecognizer];
 }
 
-- (void)centerScrollViewContents {
-    CGSize boundsSize = self.scrollView.bounds.size;
-    CGRect contentsFrame = self.imgView.frame;
+
+
+-(void)reset{
     
-    if (contentsFrame.size.width < boundsSize.width) {
-        contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2.0f;
-    } else {
-        contentsFrame.origin.x = 0.0f;
-    }
-    
-    if (contentsFrame.size.height < boundsSize.height) {
-        contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2.0f;
-    } else {
-        contentsFrame.origin.y = 0.0f;
-    }
-    
-    self.imgView.frame = contentsFrame;
+    [self.scrollView zoomToRect:self.bounds animated:NO];
 }
-
-- (void)scrollViewDoubleTapped:(UITapGestureRecognizer*)recognizer {
-
-    CGPoint pointInView = [recognizer locationInView:self.imgView];
-    CGFloat newZoomScale = self.scrollView.zoomScale * 1.5f;
-    newZoomScale = MIN(newZoomScale, self.scrollView.maximumZoomScale);
-    CGSize scrollViewSize = self.scrollView.bounds.size;
-    
-    CGFloat w = scrollViewSize.width / newZoomScale;
-    CGFloat h = scrollViewSize.height / newZoomScale;
-    CGFloat x = pointInView.x - (w / 2.0f);
-    CGFloat y = pointInView.y - (h / 2.0f);
-    
-    CGRect rectToZoomTo = CGRectMake(x, y, w, h);
-    
-    // 4
-    [self.scrollView zoomToRect:rectToZoomTo animated:YES];
-}
-
 - (void)scrollViewOneTapped:(UITapGestureRecognizer*)recognizer {
     
     [self.viewController showOrHideStatusBar:YES];
-    //    if(self.viewController.navigationController.navigationBarHidden){
-////        [self.viewController.navigationController setNavigationBarHidden:NO animated:YES];
-////        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
-//    }else{
-//        [self.viewController.navigationController setNavigationBarHidden:YES animated:YES];
-//        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
-//    }
 }
-- (UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    // Return the view that you want to zoom
+- (void)scrollViewDoubleTapped:(UIGestureRecognizer *)gesture
+{
+    if(self.scrollView.zoomScale != 1.0f){
+        CGRect zoomRect = [self zoomRectForScale:1.0f withCenter:[gesture locationInView:gesture.view]];
+        [self.scrollView zoomToRect:zoomRect animated:YES];
+    }else{
+        float newScale = 2.0f;
+        CGRect zoomRect = [self zoomRectForScale:newScale withCenter:[gesture locationInView:gesture.view]];
+        [self.scrollView zoomToRect:zoomRect animated:YES];
+    }
+}
+
+- (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center
+{
+    CGRect zoomRect;
+    zoomRect.size.height = self.frame.size.height / scale;
+    zoomRect.size.width  = self.frame.size.width  / scale;
+    zoomRect.origin.x = center.x - (zoomRect.size.width  / 2.0);
+    zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0);
+    return zoomRect;
+}
+
+
+#pragma mark - UIScrollViewDelegate
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
     return self.imgView;
 }
 
-- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
-    // The scroll view has zoomed, so you need to re-center the contents
-    [self centerScrollViewContents];
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale
+{
+    [scrollView setZoomScale:scale animated:NO];
 }
 @end
