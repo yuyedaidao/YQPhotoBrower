@@ -32,7 +32,11 @@
 
 -(void)reset{
     
-    [self.scrollView zoomToRect:self.bounds animated:NO];
+    CGRect zoomRect = [self zoomRectForScale:self.scrollView.minimumZoomScale withCenter:CGPointMake(self.scrollView.bounds.size.width/2, self.scrollView.bounds.size.height/2)];
+    [self.scrollView zoomToRect:zoomRect animated:NO];
+//    [self.scrollView setZoomScale:self.scrollView.minimumZoomScale animated:NO];
+//    self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
+//    self.imgView.center = CGPointMake(self.scrollView.frame.size.width/2, self.scrollView.bounds.size.height/2);
 }
 - (void)scrollViewOneTapped:(UITapGestureRecognizer*)recognizer {
     
@@ -40,12 +44,12 @@
 }
 - (void)scrollViewDoubleTapped:(UIGestureRecognizer *)gesture
 {
-    if(self.scrollView.zoomScale != 1.0f){
-        CGRect zoomRect = [self zoomRectForScale:1.0f withCenter:[gesture locationInView:gesture.view]];
+    if(self.scrollView.zoomScale != self.scrollView.minimumZoomScale){
+        CGRect zoomRect = [self zoomRectForScale:self.scrollView.minimumZoomScale withCenter:CGPointMake(self.scrollView.bounds.size.width/2, self.scrollView.bounds.size.height/2)];
         [self.scrollView zoomToRect:zoomRect animated:YES];
     }else{
-        float newScale = 2.0f;
-        CGRect zoomRect = [self zoomRectForScale:newScale withCenter:[gesture locationInView:gesture.view]];
+       
+        CGRect zoomRect = [self zoomRectForScale:self.scrollView.maximumZoomScale withCenter:[gesture locationInView:gesture.view]];
         [self.scrollView zoomToRect:zoomRect animated:YES];
     }
 }
@@ -53,8 +57,8 @@
 - (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center
 {
     CGRect zoomRect;
-    zoomRect.size.height = self.frame.size.height / scale;
-    zoomRect.size.width  = self.frame.size.width  / scale;
+    zoomRect.size.height = self.scrollView.frame.size.height / scale;
+    zoomRect.size.width  = self.scrollView.frame.size.width  / scale;
     zoomRect.origin.x = center.x - (zoomRect.size.width  / 2.0);
     zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0);
     return zoomRect;
@@ -71,5 +75,6 @@
 - (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale
 {
     [scrollView setZoomScale:scale animated:NO];
+    
 }
 @end

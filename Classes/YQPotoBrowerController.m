@@ -37,6 +37,7 @@ static NSString * const reuseIdentifier = @"YQPhotoBrowerCell";
     [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     [layout setItemSize:self.view.bounds.size];
     layout.minimumLineSpacing = 0.0f;
+    layout.minimumInteritemSpacing = 0.0f;
     layout.sectionInset = UIEdgeInsetsZero;
     
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
@@ -126,10 +127,12 @@ static NSString * const reuseIdentifier = @"YQPhotoBrowerCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     YQPhotoBrowerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     cell.viewController = self;
-    [cell reset];
+   
     cell.scrollView.frame = cell.bounds;
+//    cell.scrollView.contentSize = CGSizeMake(cell.bounds.size.width*2, cell.bounds.size.height*2);
     cell.imgView.frame = cell.scrollView.bounds;
-    NSLog(@"cell frame = %@",NSStringFromCGRect(cell.imgView.frame));
+    NSLog(@"cell frame = %@",NSStringFromCGRect(cell.scrollView.frame));
+    [cell reset];
     
     cell.imgView.image = self.photoArray[indexPath.item];
     return cell;
